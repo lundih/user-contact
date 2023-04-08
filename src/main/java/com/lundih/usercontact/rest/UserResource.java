@@ -4,6 +4,9 @@ import com.lundih.usercontact.dtos.requests.UserEditRequest;
 import com.lundih.usercontact.dtos.requests.UserRequest;
 import com.lundih.usercontact.dtos.responses.PageResponse;
 import com.lundih.usercontact.dtos.responses.UserResponse;
+import com.lundih.usercontact.enums.Country;
+import com.lundih.usercontact.enums.Gender;
+import com.lundih.usercontact.enums.Nationality;
 import com.lundih.usercontact.exceptions.DuplicateEntryException;
 import com.lundih.usercontact.exceptions.InvalidInputException;
 import com.lundih.usercontact.exceptions.UserNotFoundException;
@@ -14,7 +17,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
+import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
 
 @Tag(name = "User resource", description = "Endpoints for managing users")
 @RestController
@@ -89,5 +94,35 @@ public class UserResource {
     @GetMapping("search")
     public List<UserResponse> searchUsers(@RequestParam @Validated @NotNull String query) {
         return userService.searchUsers(query);
+    }
+
+    /**
+     * Gets the list of nationalities
+     *
+     * @return Hashmap of nationalities with the name for input as the key and the name for the output as the value
+     */
+    @GetMapping("nationalities")
+    public TreeMap<Nationality, String> getNationalities() {
+        return userService.getNationalities();
+    }
+
+    /**
+     * Gets the list of countries
+     *
+     * @return Hashmap of countries with the name for input as the key and the name for the output as the value
+     */
+    @GetMapping("countries")
+    public TreeMap<Country, String> getCountries() {
+        return userService.getCountries();
+    }
+
+    /**
+     * Gets the list of genders
+     *
+     * @return Hashmap of genders with the name for input as the key and the name for the output as the value
+     */
+    @GetMapping("genders")
+    public TreeMap<Gender, String> getGenders() {
+        return userService.getGenders();
     }
 }

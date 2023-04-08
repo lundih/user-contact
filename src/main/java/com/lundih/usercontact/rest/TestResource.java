@@ -1,6 +1,5 @@
 package com.lundih.usercontact.rest;
 
-import com.lundih.usercontact.enums.Nationality;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,10 +24,5 @@ public class TestResource {
     @GetMapping
     String testApp() {
         return "The server is up!";
-    }
-
-    @GetMapping("/nationalities")
-    Nationality[] getNationalities() {
-        return Nationality.values();
     }
 }

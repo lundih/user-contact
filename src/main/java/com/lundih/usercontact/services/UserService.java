@@ -5,6 +5,9 @@ import com.lundih.usercontact.dtos.requests.UserRequest;
 import com.lundih.usercontact.dtos.responses.PageResponse;
 import com.lundih.usercontact.dtos.responses.UserResponse;
 import com.lundih.usercontact.entities.User;
+import com.lundih.usercontact.enums.Country;
+import com.lundih.usercontact.enums.Gender;
+import com.lundih.usercontact.enums.Nationality;
 import com.lundih.usercontact.exceptions.DuplicateEntryException;
 import com.lundih.usercontact.exceptions.InvalidInputException;
 import com.lundih.usercontact.exceptions.UserNotFoundException;
@@ -17,9 +20,7 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static com.lundih.usercontact.utils.Helpers.propertyValid;
 
@@ -169,4 +170,48 @@ public class UserService {
         return userMapper.userListToResponse(userRepository.findAll(example,
                 PageRequest.ofSize(20).withSort(Sort.by("firstName").ascending())));
     }
+
+    /**
+     * Gets the list of nationalities
+     *
+     * @return Hashmap of nationalities with the name for input as the key and the name for the output as the value
+     */
+    public TreeMap<Nationality, String> getNationalities() {
+        return getValues(Nationality.class);
+    }
+
+    /**
+     * Gets the list of countries
+     *
+     * @return Hashmap of countries with the name for input as the key and the name for the output as the value
+     */
+    public TreeMap<Country, String> getCountries() {
+        return getValues(Country.class);
+    }
+
+    /**
+     * Gets the list of genders
+     *
+     * @return Hashmap of genders with the name for input as the key and the name for the output as the value
+     */
+    public TreeMap<Gender, String> getGenders() {
+        return getValues(Gender.class);
+    }
+
+    /**
+     * Gets the list of enum values
+     *
+     * @return Hashmap of nationalities with the name for input as the key and the name for the output as the value
+     */
+    public <T extends Enum<T>> TreeMap<T, String> getValues(Class<T> elementType) {
+        // Use treemap so values are sorted (hashmaps are not guaranteed to sort items)
+        TreeMap<T, String> values = new TreeMap<>();
+        EnumSet.allOf(elementType).forEach(value -> {
+            values.put(value, value.toString());
+        });
+
+        return values;
+    }
+
+
 }
