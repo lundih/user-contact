@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 /**
  * Rest controller to handle requests to check if the server is up
  *
@@ -17,7 +15,7 @@ import java.util.List;
  */
 @Tag(name = "Test resource", description = "Test Endpoints")
 @RestController
-@RequestMapping("api/v1/test")
+@RequestMapping("api/v1/tests")
 public class TestResource {
     /**
      * Endpoint that returns a message. This can be used for smoke test purposes

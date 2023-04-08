@@ -7,6 +7,8 @@ import com.lundih.usercontact.exceptions.InvalidInputException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -17,6 +19,8 @@ import java.time.Instant;
  * @author lundih
  * @since 0.0.1
  */
+@Entity
+@Table(name = "users")
 public class User {
     /**
      * Unique auto-generated ID
@@ -86,6 +90,7 @@ public class User {
      */
     @Getter
     @Setter
+    @CreationTimestamp
     @Column(name =  "created_on")
     private Instant createdOn;
 
@@ -94,6 +99,7 @@ public class User {
      */
     @Getter
     @Setter
+    @UpdateTimestamp
     @Column(name = "updated_on")
     private Instant updatedOn;
 

@@ -17,7 +17,7 @@ import java.util.List;
  * @author lundih
  * @since 0.0.1
  */
-@Mapper
+@Mapper(componentModel = "spring")
 public interface UserMapper {
     @Mappings({
         @Mapping(target = "id", ignore = true),

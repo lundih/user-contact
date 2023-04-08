@@ -16,6 +16,7 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,9 +29,9 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 public class UserService {
-    public final UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    public final UserMapper userMapper;
+    private final UserMapper userMapper;
 
     private final Logger logger = LoggerFactory.getLogger(UserService.class);
 
@@ -82,19 +83,17 @@ public class UserService {
                                                @NotNull Integer pageSize,
                                                List<String> sortFields,
                                                Boolean reverseSort) {
-        String sortList = "id";
+        ArrayList<String> sortList = new ArrayList<>();
+        sortList.add("id");
         Sort.Direction sortDirection = Sort.Direction.ASC;
         if (sortFields != null) {
-            sortList = "";
-            for (String field: sortFields) {
-                sortList += (field + ",");
-            }
-            sortList += "id";
+            if (!sortFields.isEmpty()) sortList = new ArrayList<>(sortFields);
         }
         if (reverseSort != null) {
             if (reverseSort) sortDirection = Sort.Direction.DESC;
         }
-        Page<User> page = userRepository.findBy(PageRequest.of(pageNumber, pageSize, Sort.by(sortDirection, sortList)));
+        Page<User> page = userRepository.findBy(
+                PageRequest.of(pageNumber, pageSize, Sort.by(sortDirection, sortList.toArray(new String[0]))));
 
         return new PageResponse<>(userMapper.userListToResponse(page.getContent()), page.getTotalElements());
     }
