@@ -1,9 +1,12 @@
 package com.lundih.usercontact.rest;
 
+import com.lundih.usercontact.enums.Nationality;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * Rest controller to handle requests to check if the server is up
@@ -24,5 +27,10 @@ public class TestResource {
     @GetMapping
     String testApp() {
         return "The server is up!";
+    }
+
+    @GetMapping("/nationalities")
+    Nationality[] getNationalities() {
+        return Nationality.values();
     }
 }

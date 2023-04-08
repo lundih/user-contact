@@ -6,6 +6,7 @@ import com.lundih.usercontact.enums.Nationality;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.time.Instant;
 
 /**
@@ -17,29 +18,36 @@ import java.time.Instant;
 public class UserRequest {
     @Getter
     @Setter
+    @NotNull
     private String firstName;
 
     @Getter
     @Setter
+    @NotNull
     private String lastName;
 
     @Getter
     @Setter
+    @NotNull
     private Country country;
 
     @Getter
     @Setter
+    @NotNull
     private Nationality nationality;
 
     @Getter
     @Setter
+    @NotNull
     private Instant birthDay;
 
     @Getter
     @Setter
+    @NotNull
     private Gender gender;
 
     @Getter
     @Setter
+    @NotNull
     private String nationalId;
 }

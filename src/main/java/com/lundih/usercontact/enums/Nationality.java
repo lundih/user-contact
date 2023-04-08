@@ -237,5 +237,14 @@ public enum Nationality {
     ZAMBIAN("Zambian"),
     ZIMBABWEAN("Zimbabwean");
 
-    Nationality(String nationality) { }
+    private final String value;
+
+    Nationality(String nationality) {
+        value = nationality;
+    }
+
+    @Override
+    public String toString() {
+        return value;
+    }
 }

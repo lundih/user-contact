@@ -3,6 +3,7 @@ package com.lundih.usercontact.entities;
 import com.lundih.usercontact.enums.Country;
 import com.lundih.usercontact.enums.Gender;
 import com.lundih.usercontact.enums.Nationality;
+import com.lundih.usercontact.exceptions.InvalidInputException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -95,4 +96,14 @@ public class User {
     @Setter
     @Column(name = "updated_on")
     private Instant updatedOn;
+
+    /**
+     * Checks for invalid fields in an object and throws a corresponding exception if an invalid field is found
+     */
+    public void validate() throws InvalidInputException {
+        if (birthDay != null) {
+            if (birthDay.isAfter(Instant.now()))
+                throw new InvalidInputException("The date of birth should not be in the future");
+        }
+    }
 }

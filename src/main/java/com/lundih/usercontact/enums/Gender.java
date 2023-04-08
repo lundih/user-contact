@@ -16,5 +16,14 @@ public enum Gender {
     PREFER_NOT_TO_SAY("Prefer not to say"),
     UNKNOWN("Unknown");
 
-    Gender(String gender) { }
+    private final String value;
+
+    Gender(String gender) {
+        value = gender;
+    }
+
+    @Override
+    public String toString() {
+        return value;
+    }
 }

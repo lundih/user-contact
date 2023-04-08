@@ -198,5 +198,14 @@ public enum Country {
 //            Zimbabwe	14,862,924	386,850
     KENYA("Kenya");
 
-    Country(String country) { }
+    private final String value;
+
+    Country(String country) {
+        value = country;
+    }
+
+    @Override
+    public String toString() {
+        return value;
+    }
 }
