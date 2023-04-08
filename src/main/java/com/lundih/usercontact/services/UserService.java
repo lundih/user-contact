@@ -1,5 +1,6 @@
 package com.lundih.usercontact.services;
 
+import com.lundih.usercontact.dtos.requests.UserEditRequest;
 import com.lundih.usercontact.dtos.requests.UserRequest;
 import com.lundih.usercontact.dtos.responses.PageResponse;
 import com.lundih.usercontact.dtos.responses.UserResponse;
@@ -19,6 +20,8 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static com.lundih.usercontact.utils.Helpers.propertyValid;
 
 /**
  * Service to process {@link com.lundih.usercontact.entities.User} logic
@@ -51,6 +54,55 @@ public class UserService {
         user.validate();
         user = userRepository.save(user);
         logger.info(String.format("User id %s was created", user.getId()));
+
+        return userMapper.userToResponse(user);
+    }
+
+    /**
+     * Edits user details
+     *
+     * @param id ID of the user whose details are to be edited
+     * @param request {@link com.lundih.usercontact.dtos.requests.UserEditRequest} with details to be edited
+     * @return {@link com.lundih.usercontact.dtos.responses.UserResponse} with edited details
+     * @throws UserNotFoundException if the user is not found
+     */
+    public UserResponse editUser(@NotNull Long id, @NotNull UserEditRequest request) throws UserNotFoundException {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isEmpty()) throw new UserNotFoundException(id);
+        User user = optionalUser.get();
+        String log = "";
+        String detail = " %s %s edited to %s";
+        if (propertyValid(request.getFirstName())) {
+            log += String.format(detail, "firstName", user.getFirstName(), request.getFirstName());
+            user.setFirstName(request.getFirstName());
+        }
+        if (propertyValid(request.getLastName())) {
+            log += String.format(detail, "lastName", user.getLastName(), request.getLastName());
+            user.setLastName(request.getLastName());
+        }
+        if (propertyValid(request.getCountry())) {
+            log += String.format(detail, "country", user.getCountry(), request.getCountry());
+            user.setCountry(request.getCountry());
+        }
+        if (propertyValid(request.getNationality())) {
+            log += String.format(detail, "nationality", user.getNationality(), request.getNationality());
+            user.setNationality(request.getNationality());
+        }
+        if (propertyValid(request.getBirthDay())) {
+            log += String.format(detail, "birthDay", user.getBirthDay(), request.getBirthDay());
+            user.setBirthDay(request.getBirthDay());
+        }
+        if (propertyValid(request.getGender())) {
+            log += String.format(detail, "gender", user.getGender(), request.getGender());
+            user.setGender(request.getGender());
+        }
+        if (propertyValid(request.getNationalId())) {
+            log += String.format(detail, "nationalId", user.getNationalId(), request.getNationalId());
+            user.setNationalId(request.getNationalId());
+        }
+        user.validate();
+        user = userRepository.save(user);
+        if (!log.equals("")) logger.info(String.format("User id %d %s", id, log));
 
         return userMapper.userToResponse(user);
     }

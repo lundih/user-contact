@@ -1,10 +1,12 @@
 package com.lundih.usercontact.rest;
 
+import com.lundih.usercontact.dtos.requests.UserEditRequest;
 import com.lundih.usercontact.dtos.requests.UserRequest;
 import com.lundih.usercontact.dtos.responses.PageResponse;
 import com.lundih.usercontact.dtos.responses.UserResponse;
 import com.lundih.usercontact.exceptions.DuplicateEntryException;
 import com.lundih.usercontact.exceptions.InvalidInputException;
+import com.lundih.usercontact.exceptions.UserNotFoundException;
 import com.lundih.usercontact.services.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +34,20 @@ public class UserResource {
     @PostMapping("new")
     public UserResponse createUser(@RequestBody @Validated @NotNull UserRequest request) {
         return userService.createUser(request);
+    }
+
+    /**
+     * Edits user details
+     *
+     * @param id ID of the user whose details are to be edited
+     * @param request {@link com.lundih.usercontact.dtos.requests.UserEditRequest} with details to be edited
+     * @return {@link com.lundih.usercontact.dtos.responses.UserResponse} with edited details
+     * @throws UserNotFoundException if the user is not found
+     */
+    @PatchMapping("{id}")
+    public UserResponse editUser(@PathVariable @Validated @NotNull Long id,
+                                 @RequestBody @Validated @NotNull UserEditRequest request) {
+        return userService.editUser(id, request);
     }
 
     /**

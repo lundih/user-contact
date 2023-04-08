@@ -4,9 +4,7 @@ import com.lundih.usercontact.enums.Country;
 import com.lundih.usercontact.enums.Gender;
 import com.lundih.usercontact.enums.Nationality;
 import lombok.Getter;
-import lombok.Setter;
-
-import javax.validation.constraints.NotNull;
+import lombok.NonNull;
 import java.time.Instant;
 
 /**
@@ -17,37 +15,35 @@ import java.time.Instant;
  */
 public class UserRequest {
     @Getter
-    @Setter
-    @NotNull
-    private String firstName;
+    private final String firstName;
 
     @Getter
-    @Setter
-    @NotNull
-    private String lastName;
+    private final String lastName;
 
     @Getter
-    @Setter
-    @NotNull
-    private Country country;
+    private final Country country;
 
     @Getter
-    @Setter
-    @NotNull
-    private Nationality nationality;
+    private final Nationality nationality;
 
     @Getter
-    @Setter
-    @NotNull
-    private Instant birthDay;
+    private final Instant birthDay;
 
     @Getter
-    @Setter
-    @NotNull
-    private Gender gender;
+    private final Gender gender;
 
     @Getter
-    @Setter
-    @NotNull
-    private String nationalId;
+    private final String nationalId;
+
+    public UserRequest(@NonNull String firstName, @NonNull String lastName, @NonNull Country country,
+                       @NonNull Nationality nationality, @NonNull Instant birthDay, @NonNull Gender gender,
+                       @NonNull String nationalId) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.country = country;
+        this.nationality = nationality;
+        this.birthDay = birthDay;
+        this.gender = gender;
+        this.nationalId = nationalId;
+    }
 }
