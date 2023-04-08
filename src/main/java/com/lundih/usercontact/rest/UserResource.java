@@ -99,7 +99,7 @@ public class UserResource {
     /**
      * Gets the list of nationalities
      *
-     * @return Hashmap of nationalities with the name for input as the key and the name for the output as the value
+     * @return TreeMap of nationalities with the name for input as the key and the name for the output as the value
      */
     @GetMapping("nationalities")
     public TreeMap<Nationality, String> getNationalities() {
@@ -109,7 +109,7 @@ public class UserResource {
     /**
      * Gets the list of countries
      *
-     * @return Hashmap of countries with the name for input as the key and the name for the output as the value
+     * @return TreeMap of countries with the name for input as the key and the name for the output as the value
      */
     @GetMapping("countries")
     public TreeMap<Country, String> getCountries() {
@@ -119,7 +119,7 @@ public class UserResource {
     /**
      * Gets the list of genders
      *
-     * @return Hashmap of genders with the name for input as the key and the name for the output as the value
+     * @return TreeMap of genders with the name for input as the key and the name for the output as the value
      */
     @GetMapping("genders")
     public TreeMap<Gender, String> getGenders() {

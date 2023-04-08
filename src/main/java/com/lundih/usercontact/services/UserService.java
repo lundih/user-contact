@@ -183,7 +183,7 @@ public class UserService {
     /**
      * Gets the list of countries
      *
-     * @return Hashmap of countries with the name for input as the key and the name for the output as the value
+     * @return TreeMap of countries with the name for input as the key and the name for the output as the value
      */
     public TreeMap<Country, String> getCountries() {
         return getValues(Country.class);
@@ -192,7 +192,7 @@ public class UserService {
     /**
      * Gets the list of genders
      *
-     * @return Hashmap of genders with the name for input as the key and the name for the output as the value
+     * @return TreeMap of genders with the name for input as the key and the name for the output as the value
      */
     public TreeMap<Gender, String> getGenders() {
         return getValues(Gender.class);
@@ -201,14 +201,12 @@ public class UserService {
     /**
      * Gets the list of enum values
      *
-     * @return Hashmap of nationalities with the name for input as the key and the name for the output as the value
+     * @return TreeMap of values with the name for input as the key and the name for the output as the value
      */
     public <T extends Enum<T>> TreeMap<T, String> getValues(Class<T> elementType) {
         // Use treemap so values are sorted (hashmaps are not guaranteed to sort items)
         TreeMap<T, String> values = new TreeMap<>();
-        EnumSet.allOf(elementType).forEach(value -> {
-            values.put(value, value.toString());
-        });
+        EnumSet.allOf(elementType).forEach(value -> values.put(value, value.toString()));
 
         return values;
     }
