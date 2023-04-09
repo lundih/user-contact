@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Tag(name = "Test resource", description = "Test Endpoints")
 @RestController
-@RequestMapping("api/v1/test")
+@RequestMapping("api/v1/tests")
 public class TestResource {
     /**
      * Endpoint that returns a message. This can be used for smoke test purposes

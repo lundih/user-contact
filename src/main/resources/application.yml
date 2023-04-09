@@ -1,6 +1,10 @@
 server:
   port: 10001
 
+  error:
+    include-message: always
+    include-exception: true
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/contacts
@@ -10,3 +14,17 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+
+logging:
+  level:
+    root: INFO
+    org.springframework: ERROR
+    com.lundih.usercontact: INFO
+  file:
+    name: logs/user-contact-logs.log
+    max-size: 5MB
+    total-size: 50MB
+    max-history: 90
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSSSSS} %p %c{1.} [%t] %m%n"
+    rolling-file-name: logs/user-contact-logs_%d{yyyy-MM-dd}.%i.log
