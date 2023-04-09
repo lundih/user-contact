@@ -102,6 +102,8 @@ public class UserService {
             user.setNationalId(request.getNationalId());
         }
         user.validate();
+        if (userRepository.existsByNationalIdAndNationality(user.getNationalId(), user.getNationality()))
+            throw new DuplicateEntryException("The combination of the nationality and national ID exists in the system");
         user = userRepository.save(user);
         if (!log.equals("")) logger.info(String.format("User id %d %s", id, log));
 
