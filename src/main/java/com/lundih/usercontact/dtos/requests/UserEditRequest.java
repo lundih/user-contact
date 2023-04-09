@@ -10,6 +10,9 @@ import java.time.Instant;
 
 /**
  * Request body for editing {@link com.lundih.usercontact.entities.User}
+ * <P>
+ * This request allows null values to be provided in order to allow users to only change values that need to be
+ * changed without having to resubmit the whole user object
  *
  * @author lundih
  * @since 0.0.1

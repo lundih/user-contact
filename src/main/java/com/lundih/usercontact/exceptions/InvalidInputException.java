@@ -10,10 +10,6 @@ import org.springframework.web.server.ResponseStatusException;
  * @since 0.0.1
  */
 public class InvalidInputException extends ResponseStatusException {
-    public InvalidInputException() {
-        super(HttpStatus.BAD_REQUEST);
-    }
-
     public InvalidInputException(String message) {
         super(HttpStatus.BAD_REQUEST, message);
     }

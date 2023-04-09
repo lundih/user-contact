@@ -10,6 +10,8 @@ import java.time.Instant;
 /**
  * Request body for {@link com.lundih.usercontact.entities.User}
  *
+ * This request does not allow null values to be provided ro ensure uniformity of user data across users
+ *
  * @author lundih
  * @since 0.0.1
  */

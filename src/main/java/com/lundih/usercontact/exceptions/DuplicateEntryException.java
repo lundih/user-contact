@@ -10,10 +10,6 @@ import org.springframework.web.server.ResponseStatusException;
  * @since 0.0.1
  */
 public class DuplicateEntryException extends ResponseStatusException {
-    public DuplicateEntryException() {
-        super(HttpStatus.CONFLICT);
-    }
-
     public DuplicateEntryException(String message) {
         super(HttpStatus.CONFLICT, message);
     }
