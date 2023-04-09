@@ -47,9 +47,9 @@ public class UserResponse {
 
     @Getter
     @Setter
-    private String createdOn;
+    private Instant createdOn;
 
     @Getter
     @Setter
-    private String updatedOn;
+    private Instant updatedOn;
 }

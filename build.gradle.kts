@@ -2,6 +2,7 @@ plugins {
 	java
 	id("org.springframework.boot") version "2.7.10"
 	id("io.spring.dependency-management") version "1.1.0"
+	jacoco
 }
 
 group = "com.lundih"
@@ -41,8 +42,43 @@ dependencies {
 	testImplementation("org.springframework.security:spring-security-test")
 }
 
+jacoco {
+	toolVersion = "0.8.9"
+}
+
 tasks {
 	withType<Test> {
 		useJUnitPlatform()
+		reports {
+			junitXml.required.set(false)
+			html.required.set(true)
+			html.outputLocation.set(File("$buildDir/reports/junit/html"))
+		}
+	}
+
+	jacocoTestReport {
+		reports {
+			xml.required.set(false)
+			csv.required.set(false)
+			html.outputLocation.set(layout.buildDirectory.dir("reports/jacoco/html"))
+		}
+	}
+
+	jacocoTestCoverageVerification {
+		dependsOn("jacocoTestReport")
+		mustRunAfter("jacocoTestReport")
+		violationRules {
+			rule {
+				limit {
+					minimum = "0.8".toBigDecimal()
+				}
+			}
+		}
+	}
+
+	getByName("check").dependsOn += "jacocoTestCoverageVerification"
+
+	bootJar {
+		archiveFileName.set("user-contact.jar")
 	}
 }
