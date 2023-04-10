@@ -1,0 +1,19 @@
+version: 2
+jobs:
+  build_project:
+    working_directory: ~/UserContact
+    docker:
+      - image: circleci/openjdk:11-jdk
+    steps:
+      - checkout
+      - run:
+          name: Run tests and check coverage
+          command: ./gradlew check
+      - run:
+          name: Build jar
+          command: ./gradlew build
+
+workflows:
+  default:
+    jobs:
+      - build_project
