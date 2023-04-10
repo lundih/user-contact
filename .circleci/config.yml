@@ -9,6 +9,12 @@ jobs:
       - run:
           name: Run tests and check coverage
           command: ./gradlew check
+      - store_artifacts:
+          path: build/reports/junit/html
+          destination: junit
+      - store_artifacts:
+          path: build/reports/jacoco
+          destination: jacoco
       - run:
           name: Build jar
           command: ./gradlew build
